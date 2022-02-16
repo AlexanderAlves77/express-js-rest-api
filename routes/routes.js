@@ -1,8 +1,11 @@
 const express = require("express")
-const app = express();
-const router = express.Router();
-const HomeController = require("../controllers/HomeController");
+const app = express()
+const router = express.Router()
+const HomeController = require("../controllers/HomeController")
+const UserController = require("../controllers/UserController")
 
-router.get('/', HomeController.index);
+router.get("/", HomeController.index)
 
-module.exports = router;
+router.post("/user", UserController.create)
+
+module.exports = router
