@@ -1,6 +1,10 @@
-const { userParams } = require("../database/connect")
+const knex = require("../database/connect")
 const User = require("../models/User")
+const bcrypt = require("bcrypt")
 const PasswordToken = require("../models/PasswordToken")
+const jwt = require("jsonwebtoken")
+
+const secret = "wa7752!kvner346@kngr#nn346$m3n%52aw&mkn677"
 
 class UserController{
     async index(req, res){
@@ -113,6 +117,28 @@ class UserController{
         } else {
             res.status(406)
             res.send("Token inválido")
+        }
+    }
+
+    async login(req, res) {
+        const {email, password} = req.body
+        const user = await User.findByEmail(email)
+
+        if (user !== undefined) {
+            const result = await bcrypt.compare(password, user.password)
+            
+            if (result) {
+                const token = jwt.sign({ email: user.email, role: user.role }, secret)
+                res.status(200)
+                res.json({ token: token })
+
+            } else {
+                res.status(406)
+                res.send("Senha incorreta")
+            }
+            
+        } else {
+            res.json({ status: false })
         }
     }
 }
