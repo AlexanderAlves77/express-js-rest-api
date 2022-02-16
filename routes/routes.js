@@ -3,6 +3,7 @@ const app = express()
 const router = express.Router()
 const HomeController = require("../controllers/HomeController")
 const UserController = require("../controllers/UserController")
+const User = require("../models/User")
 
 router.get("/", HomeController.index)
 
@@ -11,5 +12,7 @@ router.get("/user", UserController.index)
 router.get("/users/:id", UserController.findUser)
 router.put("/user", UserController.edit)
 router.delete("/user/:id", UserController.remove)
+router.post("/recoverpassword", UserController.recoverPassword)
+router.post("/changepassword", UserController.changePassword)
 
 module.exports = router
