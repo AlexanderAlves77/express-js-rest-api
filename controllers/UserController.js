@@ -3,6 +3,7 @@ const User = require("../models/User")
 const bcrypt = require("bcrypt")
 const PasswordToken = require("../models/PasswordToken")
 const jwt = require("jsonwebtoken")
+require('dotenv').config()
 
 const secret = "wa7752!kvner346@kngr#nn346$m3n%52aw&mkn677"
 
